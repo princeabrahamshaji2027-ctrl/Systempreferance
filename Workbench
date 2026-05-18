@@ -1,16 +1,10 @@
--- =========================================
--- MYSQL WORKBENCH COMPLETE CHEAT SHEET
--- =========================================
 
--- CREATE DATABASE
 CREATE DATABASE college;
 
--- USE DATABASE
+
 USE college;
 
--- =========================================
--- CREATE TABLE
--- =========================================
+
 CREATE TABLE student(
     rollno INT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
@@ -19,9 +13,8 @@ CREATE TABLE student(
     age INT
 );
 
--- =========================================
--- INSERT RECORDS
--- =========================================
+
+
 INSERT INTO student(rollno,name,branch,marks,age)
 VALUES
 (1,'Aaron','MCA',85,21),
@@ -30,20 +23,14 @@ VALUES
 (4,'Anu','MCA',95,23),
 (5,'Binu','MBA',60,21);
 
--- =========================================
--- VIEW ALL RECORDS
--- =========================================
+
 SELECT * FROM student;
 
--- =========================================
--- VIEW SPECIFIC COLUMNS
--- =========================================
+
 SELECT name,marks
 FROM student;
 
--- =========================================
--- WHERE CONDITIONS
--- =========================================
+
 
 -- Equal
 SELECT *
@@ -97,10 +84,6 @@ SELECT *
 FROM student
 WHERE branch IN('MCA','MBA');
 
--- =========================================
--- LIKE OPERATOR
--- =========================================
-
 -- Starts with A
 SELECT *
 FROM student
@@ -121,51 +104,34 @@ SELECT *
 FROM student
 WHERE name LIKE '_a%';
 
--- =========================================
--- UPDATE RECORD
--- =========================================
+
 UPDATE student
 SET marks=100
 WHERE rollno=1;
 
--- =========================================
--- DELETE RECORD
--- =========================================
+
 DELETE FROM student
 WHERE rollno=5;
 
--- =========================================
--- DELETE ALL RECORDS
--- =========================================
--- DELETE FROM student;
 
--- =========================================
--- ADD NEW COLUMN
--- =========================================
+DELETE FROM student;
+
+
 ALTER TABLE student
 ADD phone VARCHAR(15);
 
--- =========================================
--- DROP COLUMN
--- =========================================
+
 ALTER TABLE student
 DROP COLUMN phone;
 
--- =========================================
--- MODIFY COLUMN DATATYPE
--- =========================================
+
 ALTER TABLE student
 MODIFY marks FLOAT;
 
--- =========================================
--- RENAME COLUMN
--- =========================================
 ALTER TABLE student
 RENAME COLUMN marks TO total_marks;
 
--- =========================================
--- ORDER BY
--- =========================================
+
 
 -- Ascending order
 SELECT *
@@ -177,15 +143,11 @@ SELECT *
 FROM student
 ORDER BY total_marks DESC;
 
--- =========================================
--- DISTINCT
--- =========================================
+
 SELECT DISTINCT branch
 FROM student;
 
--- =========================================
--- AGGREGATE FUNCTIONS
--- =========================================
+
 
 -- COUNT
 SELECT COUNT(*)
@@ -207,9 +169,7 @@ FROM student;
 SELECT MIN(total_marks)
 FROM student;
 
--- =========================================
--- FIND STUDENT WITH MAXIMUM MARK
--- =========================================
+
 SELECT name,total_marks
 FROM student
 WHERE total_marks=
@@ -218,9 +178,6 @@ WHERE total_marks=
     FROM student
 );
 
--- =========================================
--- GROUP BY
--- =========================================
 SELECT branch,COUNT(*)
 FROM student
 GROUP BY branch;
@@ -235,17 +192,13 @@ SELECT branch,SUM(total_marks)
 FROM student
 GROUP BY branch;
 
--- =========================================
--- HAVING
--- =========================================
+
 SELECT branch,COUNT(*)
 FROM student
 GROUP BY branch
 HAVING COUNT(*)>1;
 
--- =========================================
--- CREATE VIEW
--- =========================================
+
 CREATE VIEW high_marks AS
 SELECT rollno,name,total_marks
 FROM student
@@ -257,14 +210,9 @@ SELECT * FROM high_marks;
 -- DROP VIEW
 DROP VIEW high_marks;
 
--- =========================================
--- DESCRIBE TABLE
--- =========================================
 DESC student;
 
--- =========================================
--- CREATE SECOND TABLE
--- =========================================
+
 CREATE TABLE employee(
     empid INT PRIMARY KEY,
     empname VARCHAR(50),
@@ -272,42 +220,29 @@ CREATE TABLE employee(
     department VARCHAR(50)
 );
 
--- =========================================
--- INSERT INTO EMPLOYEE
--- =========================================
 INSERT INTO employee
 VALUES
 (101,'Arun',25000,'HR'),
 (102,'Basil',40000,'IT'),
 (103,'David',35000,'Finance');
 
--- =========================================
--- ORDER EMPLOYEE BY SALARY
--- =========================================
+
 SELECT *
 FROM employee
 ORDER BY salary DESC;
 
--- =========================================
--- EMPLOYEE GROUP BY
--- =========================================
+
 SELECT department,AVG(salary)
 FROM employee
 GROUP BY department;
 
--- =========================================
--- DROP TABLE
--- =========================================
+
 DROP TABLE employee;
 
--- =========================================
--- DROP DATABASE
--- =========================================
--- DROP DATABASE college;
 
--- =========================================
--- FULL EXAM FLOW
--- =========================================
+DROP DATABASE college;
+
+==
 
 CREATE TABLE exam_student(
     rollno INT PRIMARY KEY,
