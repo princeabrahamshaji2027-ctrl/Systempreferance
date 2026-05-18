@@ -1,0 +1,349 @@
+-- =========================================
+-- MYSQL WORKBENCH COMPLETE CHEAT SHEET
+-- =========================================
+
+-- CREATE DATABASE
+CREATE DATABASE college;
+
+-- USE DATABASE
+USE college;
+
+-- =========================================
+-- CREATE TABLE
+-- =========================================
+CREATE TABLE student(
+    rollno INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    branch VARCHAR(50),
+    marks INT CHECK(marks<=100),
+    age INT
+);
+
+-- =========================================
+-- INSERT RECORDS
+-- =========================================
+INSERT INTO student(rollno,name,branch,marks,age)
+VALUES
+(1,'Aaron','MCA',85,21),
+(2,'Mathew','MBA',90,22),
+(3,'Tom','BCA',70,20),
+(4,'Anu','MCA',95,23),
+(5,'Binu','MBA',60,21);
+
+-- =========================================
+-- VIEW ALL RECORDS
+-- =========================================
+SELECT * FROM student;
+
+-- =========================================
+-- VIEW SPECIFIC COLUMNS
+-- =========================================
+SELECT name,marks
+FROM student;
+
+-- =========================================
+-- WHERE CONDITIONS
+-- =========================================
+
+-- Equal
+SELECT *
+FROM student
+WHERE marks=90;
+
+-- Greater than
+SELECT *
+FROM student
+WHERE marks>80;
+
+-- Less than
+SELECT *
+FROM student
+WHERE marks<80;
+
+-- Greater than or equal
+SELECT *
+FROM student
+WHERE marks>=85;
+
+-- Less than or equal
+SELECT *
+FROM student
+WHERE marks<=70;
+
+-- Not equal
+SELECT *
+FROM student
+WHERE branch!='MCA';
+
+-- AND condition
+SELECT *
+FROM student
+WHERE branch='MCA'
+AND marks>80;
+
+-- OR condition
+SELECT *
+FROM student
+WHERE branch='MBA'
+OR branch='BCA';
+
+-- BETWEEN
+SELECT *
+FROM student
+WHERE marks BETWEEN 70 AND 90;
+
+-- IN operator
+SELECT *
+FROM student
+WHERE branch IN('MCA','MBA');
+
+-- =========================================
+-- LIKE OPERATOR
+-- =========================================
+
+-- Starts with A
+SELECT *
+FROM student
+WHERE name LIKE 'A%';
+
+-- Ends with n
+SELECT *
+FROM student
+WHERE name LIKE '%n';
+
+-- Contains a
+SELECT *
+FROM student
+WHERE name LIKE '%a%';
+
+-- Second letter a
+SELECT *
+FROM student
+WHERE name LIKE '_a%';
+
+-- =========================================
+-- UPDATE RECORD
+-- =========================================
+UPDATE student
+SET marks=100
+WHERE rollno=1;
+
+-- =========================================
+-- DELETE RECORD
+-- =========================================
+DELETE FROM student
+WHERE rollno=5;
+
+-- =========================================
+-- DELETE ALL RECORDS
+-- =========================================
+-- DELETE FROM student;
+
+-- =========================================
+-- ADD NEW COLUMN
+-- =========================================
+ALTER TABLE student
+ADD phone VARCHAR(15);
+
+-- =========================================
+-- DROP COLUMN
+-- =========================================
+ALTER TABLE student
+DROP COLUMN phone;
+
+-- =========================================
+-- MODIFY COLUMN DATATYPE
+-- =========================================
+ALTER TABLE student
+MODIFY marks FLOAT;
+
+-- =========================================
+-- RENAME COLUMN
+-- =========================================
+ALTER TABLE student
+RENAME COLUMN marks TO total_marks;
+
+-- =========================================
+-- ORDER BY
+-- =========================================
+
+-- Ascending order
+SELECT *
+FROM student
+ORDER BY name ASC;
+
+-- Descending order
+SELECT *
+FROM student
+ORDER BY total_marks DESC;
+
+-- =========================================
+-- DISTINCT
+-- =========================================
+SELECT DISTINCT branch
+FROM student;
+
+-- =========================================
+-- AGGREGATE FUNCTIONS
+-- =========================================
+
+-- COUNT
+SELECT COUNT(*)
+FROM student;
+
+-- SUM
+SELECT SUM(total_marks)
+FROM student;
+
+-- AVG
+SELECT AVG(total_marks)
+FROM student;
+
+-- MAX
+SELECT MAX(total_marks)
+FROM student;
+
+-- MIN
+SELECT MIN(total_marks)
+FROM student;
+
+-- =========================================
+-- FIND STUDENT WITH MAXIMUM MARK
+-- =========================================
+SELECT name,total_marks
+FROM student
+WHERE total_marks=
+(
+    SELECT MAX(total_marks)
+    FROM student
+);
+
+-- =========================================
+-- GROUP BY
+-- =========================================
+SELECT branch,COUNT(*)
+FROM student
+GROUP BY branch;
+
+-- GROUP BY with AVG
+SELECT branch,AVG(total_marks)
+FROM student
+GROUP BY branch;
+
+-- GROUP BY with SUM
+SELECT branch,SUM(total_marks)
+FROM student
+GROUP BY branch;
+
+-- =========================================
+-- HAVING
+-- =========================================
+SELECT branch,COUNT(*)
+FROM student
+GROUP BY branch
+HAVING COUNT(*)>1;
+
+-- =========================================
+-- CREATE VIEW
+-- =========================================
+CREATE VIEW high_marks AS
+SELECT rollno,name,total_marks
+FROM student
+WHERE total_marks>80;
+
+-- VIEW DATA
+SELECT * FROM high_marks;
+
+-- DROP VIEW
+DROP VIEW high_marks;
+
+-- =========================================
+-- DESCRIBE TABLE
+-- =========================================
+DESC student;
+
+-- =========================================
+-- CREATE SECOND TABLE
+-- =========================================
+CREATE TABLE employee(
+    empid INT PRIMARY KEY,
+    empname VARCHAR(50),
+    salary FLOAT,
+    department VARCHAR(50)
+);
+
+-- =========================================
+-- INSERT INTO EMPLOYEE
+-- =========================================
+INSERT INTO employee
+VALUES
+(101,'Arun',25000,'HR'),
+(102,'Basil',40000,'IT'),
+(103,'David',35000,'Finance');
+
+-- =========================================
+-- ORDER EMPLOYEE BY SALARY
+-- =========================================
+SELECT *
+FROM employee
+ORDER BY salary DESC;
+
+-- =========================================
+-- EMPLOYEE GROUP BY
+-- =========================================
+SELECT department,AVG(salary)
+FROM employee
+GROUP BY department;
+
+-- =========================================
+-- DROP TABLE
+-- =========================================
+DROP TABLE employee;
+
+-- =========================================
+-- DROP DATABASE
+-- =========================================
+-- DROP DATABASE college;
+
+-- =========================================
+-- FULL EXAM FLOW
+-- =========================================
+
+CREATE TABLE exam_student(
+    rollno INT PRIMARY KEY,
+    name VARCHAR(50),
+    marks INT
+);
+
+INSERT INTO exam_student
+VALUES
+(1,'Aby',80),
+(2,'Binu',90),
+(3,'Jeena',70);
+
+SELECT * FROM exam_student;
+
+UPDATE exam_student
+SET marks=95
+WHERE rollno=2;
+
+ALTER TABLE exam_student
+ADD place VARCHAR(50);
+
+SELECT *
+FROM exam_student
+WHERE marks>75;
+
+SELECT *
+FROM exam_student
+ORDER BY marks DESC;
+
+SELECT AVG(marks)
+FROM exam_student;
+
+DELETE FROM exam_student
+WHERE rollno=3;
+
+SELECT * FROM exam_student;
+
+DROP TABLE exam_student;
