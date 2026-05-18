@@ -1,0 +1,345 @@
+1. MainActivity.java
+package com.example.myapplication;
+
+import android.database.Cursor;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText editId, editName, editMark;\\EditText editMark2;
+
+    Button btnInsert, btnView, btnUpdate, btnDelete;
+
+    TextView txtResult;
+
+    DatabaseHelper db;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+
+        EdgeToEdge.enable(this);
+
+        setContentView(R.layout.activity_main);
+
+        editId = findViewById(R.id.editId);
+
+        editName = findViewById(R.id.editName);
+
+        editMark = findViewById(R.id.editMark);
+
+        btnInsert = findViewById(R.id.btnInsert);
+
+        btnView = findViewById(R.id.btnView);
+
+        btnUpdate = findViewById(R.id.btnUpdate);
+
+        btnDelete = findViewById(R.id.btnDelete);
+
+        txtResult = findViewById(R.id.txtResult);
+//editMark2 = findViewById(R.id.editMark2);
+
+        db = new DatabaseHelper(this);
+
+        btnInsert.setOnClickListener(v -> {
+
+            String name = editName.getText().toString();
+
+            String mark = editMark.getText().toString();
+//int mark1 = Integer.parseInt(editMark.getText().toString());
+
+//int mark2 = Integer.parseInt(editMark2.getText().toString());
+
+//int total = mark1 + mark2;
+
+            boolean inserted = db.insertData(name, mark);//boolean inserted = db.insertData(name, String.valueOf(total));
+
+            if(inserted)
+            {
+                txtResult.setText("Data Inserted");
+            }
+            else
+            {
+                txtResult.setText("Insertion Failed");
+            }
+
+        });
+
+
+        btnView.setOnClickListener(v -> {
+
+            Cursor cursor = db.viewData();
+
+            StringBuilder builder = new StringBuilder();
+
+            while(cursor.moveToNext())
+            {
+                builder.append("ID : ")
+                        .append(cursor.getString(0))
+                        .append("\n");
+
+                builder.append("NAME : ")
+                        .append(cursor.getString(1))
+                        .append("\n");
+
+                builder.append("MARK : ")
+                        .append(cursor.getString(2))
+                        .append("\n\n");
+            }
+
+            txtResult.setText(builder.toString());
+
+        });
+
+
+        btnUpdate.setOnClickListener(v -> {
+
+            boolean updated = db.updateData(
+
+                    editId.getText().toString(),
+
+                    editName.getText().toString(),
+
+                    editMark.getText().toString()
+
+            );
+
+            if(updated)
+            {
+                txtResult.setText("Data Updated");
+            }
+            else
+            {
+                txtResult.setText("Update Failed");
+            }
+
+        });
+
+
+
+        btnDelete.setOnClickListener(v -> {
+
+            int deleted = db.deleteData(
+
+                    editId.getText().toString()
+
+            );
+
+            if(deleted > 0)
+            {
+                txtResult.setText("Data Deleted");
+            }
+            else
+            {
+                txtResult.setText("Delete Failed");
+            }
+
+        });
+
+    }
+}
+=========================
+2. DatabaseHelper.java
+package com.example.myapplication;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import androidx.annotation.Nullable;
+
+public class DatabaseHelper extends SQLiteOpenHelper {
+
+    public static final String DATABASE_NAME ="Student.db";
+
+    public static final String TABLE_NAME = "Student_table";
+
+    public static final String COL_ID = "ID";
+
+    public static final String COL_NAME = "NAME";
+
+    public static final String COL_MARK = "MARK";
+
+
+
+    public DatabaseHelper(@Nullable Context context) {
+
+        super(context, DATABASE_NAME, null, 1);
+
+    }
+
+
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+
+        db.execSQL(
+
+                "CREATE TABLE " + TABLE_NAME +
+
+                        "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+
+                        "NAME TEXT, " +
+
+                        "MARK INTEGER)"
+
+        );
+
+    }
+
+
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+
+        onCreate(db);
+
+    }
+
+
+    public boolean insertData(String name, String mark)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COL_NAME, name);
+
+        contentValues.put(COL_MARK, mark);
+
+        long result = db.insert(TABLE_NAME, null, contentValues);
+
+        return result != -1;
+    }
+
+
+    public Cursor viewData()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+    }
+
+
+    public boolean updateData(String id, String name, String mark)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COL_ID, id);
+
+        contentValues.put(COL_NAME, name);
+
+        contentValues.put(COL_MARK, mark);
+
+        db.update(TABLE_NAME, contentValues, "ID=?", new String[]{id});
+
+        return true;
+    }
+
+
+
+    public Integer deleteData(String id)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        return db.delete(TABLE_NAME, "ID=?", new String[]{id});
+    }
+
+}
+====================
+3. activity_main.xml
+
+Use Design View drag-and-drop if possible.
+But full XML is below.
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+
+    <EditText
+        android:id="@+id/editId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter ID"
+        android:inputType="number" />
+
+
+
+    <EditText
+        android:id="@+id/editName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Name" />
+
+
+
+    <EditText
+        android:id="@+id/editMark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Mark"
+        android:inputType="number" />
+//add one more edit text id editMark2;
+
+
+
+    <Button
+        android:id="@+id/btnInsert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="INSERT" />
+
+
+
+    <Button
+        android:id="@+id/btnView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="VIEW" />
+
+
+
+    <Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="UPDATE" />
+
+
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DELETE" />
+
+
+
+    <TextView
+        android:id="@+id/txtResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OUTPUT"
+        android:textSize="18sp"
+        android:paddingTop="20dp" />
+
+</LinearLayout>
