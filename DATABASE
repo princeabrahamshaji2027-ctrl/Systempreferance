@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -61,14 +63,14 @@ public class MainActivity extends AppCompatActivity {
 
             boolean inserted = db.insertData(name, mark);//boolean inserted = db.insertData(name, String.valueOf(total));
 
-            if(inserted)
-            {
-                txtResult.setText("Data Inserted");
-            }
-            else
-            {
-                txtResult.setText("Insertion Failed");
-            }
+         if(inserted)
+{
+    Toast.makeText(this, "Data Inserted", Toast.LENGTH_SHORT).show();
+}
+else
+{
+    Toast.makeText(this, "Insertion Failed", Toast.LENGTH_SHORT).show();
+}
 
         });
 
@@ -95,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
             }
 
             txtResult.setText(builder.toString());
+ Toast.makeText(this,
+                    "Data Displayed",
+                    Toast.LENGTH_SHORT).show();
+
 
         });
 
@@ -112,12 +118,13 @@ public class MainActivity extends AppCompatActivity {
             );
 
             if(updated)
-            {
-                txtResult.setText("Data Updated");
+{
+    Toast.makeText(this, "Data Updated", Toast.LENGTH_SHORT).show();
+}
             }
             else
             {
-                txtResult.setText("Update Failed");
+                 Toast.makeText(this, "Update failed", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -132,13 +139,15 @@ public class MainActivity extends AppCompatActivity {
 
             );
 
-            if(deleted > 0)
-            {
-                txtResult.setText("Data Deleted");
+           if(deleted > 0)
+{
+   txtResult.setText("Data Deleted");
+    Toast.makeText(this, "Data Deleted", Toast.LENGTH_SHORT).show();
+}
             }
             else
             {
-                txtResult.setText("Delete Failed");
+               Toast.makeText(this, "Delete Failed", Toast.LENGTH_SHORT).show();
             }
 
         });
