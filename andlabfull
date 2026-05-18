@@ -1,0 +1,2576 @@
+ Aim: To create a program to design User Login form
+
+CO1: Design and develop user interfaces for mobile apps using basic building blocks, UI components and application structure using Emulator
+
+Procedure:
+                 Activity.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username"/>
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="18sp"
+        
+android:layout_marginTop="20dp"/>
+
+</LinearLayout>
+
+MainActivity.java
+
+package com.example.loginapp;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText username, password;
+    Button login;
+    TextView result;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        username = findViewById(R.id.etUsername);
+        password = findViewById(R.id.etPassword);
+        login = findViewById(R.id.btnLogin);
+        result = findViewById(R.id.tvResult);
+
+        login.setOnClickListener(v -> {
+            String Username = username.getText().toString();
+            String Password = password.getText().toString();
+
+            if (username.equals("admin") && password.equals("1234")) {
+                result.setText("Login Successful");
+            } else {
+                result.setText("Invalid Credentials");
+            }
+        });
+    }
+}
+
+
+
+          Result: The program was executed. The result was obtained successfully.Thus CO1 was obtained.
+
+          Output:
+           
+                      
+
+
+
+
+
+
+
+
+
+Experiment No: 2
+ 
+Aim: To create a program to display message in Edit text on button press
+ 
+CO1: Design and develop user interfaces for mobile apps using basic building blocks, UI components and application structure using Emulator
+
+Procedure:
+Activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
+ 	android:id="@+id/main"
+ 	android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:orientation="vertical"
+ 	android:gravity="center"
+     tools:context=".MainActivity">
+ 	<TextView
+         android:id="@+id/textViewDisplay"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_margin="16dp"
+     	android:textSize="20sp"
+         android:textAlignment="center"
+     	android:text="" />
+ 	<EditText
+         android:id="@+id/editTextMessage"
+     	android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_margin="16dp"
+     	android:hint="Type your message here"
+         android:inputType="text" />
+ 	<Button
+         android:id="@+id/buttonDisplay"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+     	
+
+    android:text="OK" />
+ </LinearLayout>
+
+
+MainActivity.java
+ 
+package com.example.display_message;
+
+ import android.os.Bundle;
+
+ import androidx.activity.EdgeToEdge;
+ import androidx.appcompat.app.AppCompatActivity;
+ import androidx.core.graphics.Insets;
+ import androidx.core.view.ViewCompat;
+ import androidx.core.view.WindowInsetsCompat;
+ import android.view.View;
+ import android.widget.Button;
+ import android.widget.EditText;
+ import android.widget.TextView;
+
+ public class MainActivity extends AppCompatActivity {
+
+ 	private TextView textViewDisplay;
+ 	private EditText editTextMessage;
+ 	private Button buttonDisplay;
+
+ 	@Override
+ 	protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+     	EdgeToEdge.enable(this);
+     	setContentView(R.layout.activity_main);
+     	
+
+
+
+
+
+
+
+
+
+     	textViewDisplay = findViewById(R.id.textViewDisplay);
+     	editTextMessage = findViewById(R.id.editTextMessage);
+     	buttonDisplay = findViewById(R.id.buttonDisplay);
+
+         buttonDisplay.setOnClickListener(new View.OnClickListener() {
+         	@Override
+         	public void onClick(View v) {
+             	String inputMessage = editTextMessage.getText().toString();
+                 textViewDisplay.setText(inputMessage);
+         	}
+     	});
+ 	}
+ }
+ 
+ 
+ 
+ 
+Result: The program was executed. The result was obtained successfully.Thus CO1 was obtained.
+ 
+Output:
+
+
+
+
+
+
+Experiment No: 3
+
+           Aim: To  create a program to check the given number in the Edit Text, is prime or not
+
+CO2: Write simple programs and develop small applications using the concepts of UI design, layouts and preferences 
+
+Procedure:
+                Activity_main.xml
+ <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/et1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter a number"
+        />
+    <Button
+        android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" "
+        android:id="@+id/result"
+        />
+
+</LinearLayout>
+
+MainActivity.java
+ 
+package com.example.prime;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        EditText et1 = findViewById(R.id.et1);
+        Button check = findViewById(R.id.check);
+        TextView result = findViewById(R.id.result);
+        check.setOnClickListener(v -> {
+            int n = Integer.parseInt(et1.getText().toString());
+            boolean flag = false;
+            for (int i = 2; i <= n / 2; ++i) {
+                if (n % i == 0) {
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag)
+                result.setText("Prime");
+            else
+                result.setText("Not Prime");
+        });
+    }
+}
+
+
+          Result: The program was executed. The result was obtained successfully.Thus CO1 was obtained.
+
+          Output:
+                     
+     
+
+
+
+
+
+
+
+
+
+
+Experiment No: 4
+
+           Aim: To create a program to demonstrate Toast
+
+CO2: Write simple programs and develop small applications using the concepts of UI design, layouts and preferences 
+
+Procedure:
+
+       Activity_main.xml
+     <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+   <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="30dp"
+        android:text="Toast Demo" />
+
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="30dp"
+        android:text="Click me" />
+
+      </LinearLayout>
+
+
+
+
+
+Main_activity.java
+package com.example.demo;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import com.google.android.material.snackbar.Snackbar;
+
+public class MainActivity extends AppCompatActivity {
+
+    Button btn;
+    LinearLayout layout;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+
+        layout=findViewById(R.id.main);
+        btn=findViewById(R.id.btn);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+
+
+                  Toast.makeText(MainActivity.this,"Message undone", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+          Result: The program was executed. The result was obtained successfully.Thus CO1 was obtained.
+
+
+          Output:
+              
+                  
+
+
+
+
+
+
+
+
+Experiment No: 5
+
+           Aim: To Create a program to add two numbers and display the result
+
+CO2: Write simple programs and develop small applications using the concepts of UI design, layouts and preferences 
+
+Procedure:
+                 Activity_Main.xml
+<?xml version="1.0" encoding="utf-8"?>
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
+ 	android:id="@+id/main"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:orientation="vertical"
+ 	android:gravity="center"
+     tools:context=".MainActivity">
+
+ 	<EditText
+         android:id="@+id/editTextNum1"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_margin="16dp"
+     	android:hint="Enter first number"
+         android:inputType="numberDecimal" />
+ 	<EditText
+         android:id="@+id/editTextNum2"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+     	android:layout_margin="16dp"
+     	android:hint="Enter second number"
+         android:inputType="numberDecimal" />
+ 	<Button
+         android:id="@+id/buttonAdd"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+     	android:text="Add" />
+
+ 	
+<TextView
+         android:id="@+id/textViewResult"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_margin="16dp"
+     	android:textSize="20sp"
+     	android:textAlignment="center"
+     	android:text="Result will appear here" />
+
+ </LinearLayout>
+ 
+     MainActivity.java
+ 
+package com.example.display_message;
+ import android.os.Bundle;
+ import androidx.activity.EdgeToEdge;
+ import androidx.appcompat.app.AppCompatActivity;
+ import androidx.core.graphics.Insets;
+ import androidx.core.view.ViewCompat;
+ import androidx.core.view.WindowInsetsCompat;
+ import android.view.View;
+ import android.widget.Button;
+ import android.widget.EditText;
+ import android.widget.TextView;
+
+ public class MainActivity extends AppCompatActivity {
+
+ 	private EditText editTextNum1;
+ 	private EditText editTextNum2;
+ 	private Button buttonAdd;
+ 	private TextView textViewResult;
+ 	@Override
+ 	protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+     	EdgeToEdge.enable(this);
+            setContentView(R.layout.activity_main);
+     	
+
+
+     	editTextNum1 = findViewById(R.id.editTextNum1);
+     	editTextNum2 = findViewById(R.id.editTextNum2);
+     	buttonAdd = findViewById(R.id.buttonAdd);
+     	textViewResult = findViewById(R.id.textViewResult);
+
+     	buttonAdd.setOnClickListener(new View.OnClickListener() {
+         	@Override
+         	public void onClick(View v) {
+             	String num1Str = editTextNum1.getText().toString();
+             	String num2Str = editTextNum2.getText().toString();
+             	
+             	if (!num1Str.isEmpty() && !num2Str.isEmpty()) {
+                 	try {
+                     	double num1 = Double.parseDouble(num1Str);
+                     	double num2 = Double.parseDouble(num2Str);
+                     	double sum = num1 + num2;
+                         textViewResult.setText("Result: " + sum);
+                 	} catch (NumberFormatException e) {
+                         textViewResult.setText("Invalid input!");
+                 	}
+             	} else {
+                     textViewResult.setText("Please enter both numbers.");
+             	}
+         	}
+     	});
+ 	}
+ }
+ 
+ 
+
+          Result: The program was executed. The result was obtained successfully. Thus CO1 was obtained.
+
+
+
+
+
+
+     Output:
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   Experiment No: 6
+ 
+  Aim: To Create a program to perform simple calculator using Linear Layout
+ 
+  CO2: Write simple programs and develop small applications using the concepts of UI design, layouts and preferences
+ 
+  Procedure:
+ 
+   Activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="My Calculator"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/num1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:hint="Enter first number"
+        android:textColorHint="@color/black" />
+    <EditText
+        android:id="@+id/num2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:hint="Enter second number"
+        android:textColorHint="@color/black" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:id="@+id/add"
+        android:layout_marginTop="40dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subtract"
+        android:id="@+id/sub"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Multiply"
+        android:id="@+id/mul"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Divide"
+        android:id="@+id/div"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/res"/>
+
+</LinearLayout>
+
+
+
+
+MainActivity.java
+
+package com.example.calculator;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText n1, n2;
+    TextView result;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+
+        n1 = findViewById(R.id.num1);
+        n2 = findViewById(R.id.num2);
+
+        Button addbtn = findViewById(R.id.add);
+        Button subbtn = findViewById(R.id.sub);
+        Button mulbtn = findViewById(R.id.mul);
+        Button divbtn = findViewById(R.id.div);
+        result = findViewById(R.id.res);
+
+
+
+
+        addbtn.setOnClickListener(v -> calculate("add"));
+        subbtn.setOnClickListener(v -> calculate("sub"));
+        mulbtn.setOnClickListener(v -> calculate("mul"));
+        divbtn.setOnClickListener(v -> calculate("div"));
+    }
+
+    private void calculate(String op) {
+        String s1 = n1.getText().toString();
+        String s2 = n2.getText().toString();
+
+        if (s1.isEmpty() || s2.isEmpty())
+            return;
+
+        try {
+            int num1 = Integer.parseInt(s1);
+            int num2 = Integer.parseInt(s2);
+            int res = 0;
+
+            if (op.equals("add"))
+                res = num1 + num2;
+            else if (op.equals("mul"))
+                res = num1 * num2;
+            else if (op.equals("sub"))
+                res = num1 - num2;
+            else if (op.equals("div")) {
+                if (num2 != 0) res = num1 / num2;
+            }
+            result.setText(String.valueOf(res));
+        } catch (NumberFormatException e) {
+            // Handle invalid input
+        }
+
+    }
+
+}
+
+
+
+
+ 
+Result: The program was executed. The result was obtained successfully.Thus CO2 was obtained.
+
+
+
+Output:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Experiment No: 7
+
+    Aim: To Develop an application that uses Shared Preferences 
+
+   CO3: Develop applications with multiple activities using intents, array adapter, exceptions and options menu. 
+
+    Procedure:
+        activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/appTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Application"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp"/>
+
+    <EditText
+        android:id="@+id/nameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your name" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save and Continue"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>
+
+
+
+MainActivity.java
+
+package com.example.sharedpreferences;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText nameInput;
+    Button saveButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+
+        nameInput = findViewById(R.id.nameInput);
+        saveButton = findViewById(R.id.saveButton);
+
+        saveButton.setOnClickListener(view -> {
+            String name = nameInput.getText().toString();
+
+            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("username", name);
+            editor.apply();
+
+            Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+            startActivity(intent);
+        });
+    }
+}
+
+
+
+activity_main2.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/displayName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="348dp"
+        android:text="Welcome!"
+        android:textColor="#000000"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.43"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+MainActivity2.java
+
+package com.example.sharedpreferences;
+
+import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity2 extends AppCompatActivity {
+
+
+
+
+    TextView displayName;
+
+
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main2);
+
+        displayName = findViewById(R.id.displayName);
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String name = sharedPreferences.getString("username", "Guest");
+
+        displayName.setText("Welcome, " + name + "!");
+    }
+}
+
+
+ Result: The program was executed. The result was obtained successfully.Thus CO1 was obtained.
+
+ Output:
+                                                    
+
+
+
+   Experiment No: 8
+
+   Aim: To Develop an application to implement Options Menu to navigate to activities
+
+  CO3: Develop applications with multiple activities using intents, array adapter, exceptions and options menu. 
+
+  Procedure:
+ 
+Activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Options Menu Example"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
+
+	activity_home.xml
+		<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Home Activity"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
+	activity_about.xml
+		<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About Activity"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
+	activity_contact.xml
+		<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ContactActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contact Activity"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
+
+
+
+	MainActivity.java
+package com.example.myapplication;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.home) {
+            startActivity(new Intent(this, HomeActivity.class));
+            return true;
+        }
+
+        else if (item.getItemId() == R.id.about) {
+            startActivity(new Intent(this, AboutActivity.class));
+            return true;
+        }
+
+        else if (item.getItemId() == R.id.contact) {
+            startActivity(new Intent(this, ContactActivity.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+}
+
+ Result: The program was executed. The result was obtained successfully.Thus CO1 was obtained.
+
+          
+Output:
+ 
+     
+
+
+
+
+
+
+
+                                                                             
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                              
+
+
+
+
+
+
+
+
+
+
+
+
+
+     Experiment No: 9
+
+     Aim: To Develop an application to implement Options Menu to navigate to activities via code
+
+    CO3: Develop applications with multiple activities using intents, array adapter, exceptions and  options menu.
+
+       Procedure:
+activity_main.xml
+
+                <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Options Menu via Code Example"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
+	activity_home.xml
+		<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Home Activity"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
+	activity_about.xml
+		<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About Activity"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
+	activity_contact.xml
+		<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ContactActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contact Activity"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
+
+
+
+
+	MainActivity.java
+		package com.example.myapplication;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        menu.add(0, 1, 0, "Home");
+        menu.add(0, 2, 0, "About");
+        menu.add(0, 3, 0, "Contact");
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case 1:
+                startActivity(new Intent(this, HomeActivity.class));
+                return true;
+
+            case 2:
+                startActivity(new Intent(this, AboutActivity.class));
+                return true;
+
+            case 3:
+                startActivity(new Intent(this, ContactActivity.class));
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+}
+
+
+Result: The program was executed. The result was obtained successfully.Thus CO1 was obtained.
+
+Output:
+                      
+
+
+
+
+
+
+
+
+
+
+
+                                                                              
+                                                                            
+
+
+
+
+                                        
+
+
+
+
+Experiment No: 10
+
+           Aim: To Develop an application to implement Context Menu 
+
+          CO3: Develop applications with multiple activities using intents, array adapter, exceptions and options menu.
+
+         Procedure:
+	
+	 activity_main.xml
+                 	<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Long Press Me For Context Menu"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:padding="20dp" />
+
+</LinearLayout>
+
+	MainActivity.java
+		package com.example.myapplication;
+import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+
+
+public class MainActivity extends AppCompatActivity {
+
+    TextView textView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        textView = findViewById(R.id.textView);
+
+        // Registering context menu
+        registerForContextMenu(textView);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        menu.setHeaderTitle("Select Option");
+
+        menu.add(0, 1, 0, "Edit");
+        menu.add(0, 2, 0, "Delete");
+        menu.add(0, 3, 0, "Share");
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case 1:
+                Toast.makeText(this, "Edit Selected", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case 2:
+                Toast.makeText(this, "Delete Selected", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case 3:
+                Toast.makeText(this, "Share Selected", Toast.LENGTH_SHORT).show();
+                return true;
+
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+}
+
+
+          Result: The program was executed. The result was obtained successfully.Thus CO1 was obtained.
+
+          Output:
+           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Experiment No: 11
+
+           Aim: To Develop an application to implement Popup Menu 
+
+CO3: Develop applications with multiple activities using intents, array adapter, exceptions and options menu.
+
+Procedure:
+                 activity_main.xml
+     <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btnPopup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Popup Menu"
+        android:textSize="18sp" />
+
+</LinearLayout>
+
+	MainActivity.java
+		package com.example.myapplication;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.PopupMenu;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+
+    Button btnPopup;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        btnPopup = findViewById(R.id.btnPopup);
+
+        btnPopup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                PopupMenu popupMenu = new PopupMenu(MainActivity.this, btnPopup);
+
+                popupMenu.getMenu().add("Edit");
+                popupMenu.getMenu().add("Delete");
+                popupMenu.getMenu().add("Share");
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        Toast.makeText(MainActivity.this,
+                                item.getTitle() + " Selected",
+                                Toast.LENGTH_SHORT).show();
+
+                        return true;
+                    }
+                });
+
+                popupMenu.show();
+            }
+        });
+    }
+}
+
+
+          Result: The program was executed. The result was obtained successfully.Thus CO1 was obtained.
+
+
+
+
+
+
+
+
+
+
+
+
+          Output:
+                      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Experiment No: 12
+
+    Aim: To Create a program to move an Image from one Image View to another Image View on button press
+
+    CO4: Implement activities with dialogs, spinner, fragments and navigation drawer by applying themes 
+
+    Procedure:
+           activity_main.xml
+         <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+
+    tools:context=".MainActivity"
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:padding="20dp">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="150dp"
+        android:layout_height="194dp"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_launcher_background"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/moveButton"
+        android:layout_width="167dp"
+        android:layout_height="82dp"
+        android:layout_gravity="center"
+        android:text="Move image"
+        android:layout_marginTop="30dp"
+        android:visibility="visible"
+        tools:ignore="MissingConstraints" />
+
+
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        tools:ignore="MissingConstraints" />
+
+</LinearLayout>
+
+MainActivity.java
+package com.example.applicationtrial;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import com.example.applicationtrial.R;
+
+public class MainActivity extends AppCompatActivity {
+
+    ImageView imageView1, imageView2;
+    Button moveButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+
+        imageView1 = findViewById(R.id.imageView1);
+        imageView2 = findViewById(R.id.imageView2);
+        moveButton = findViewById(R.id.moveButton);
+
+        moveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                
+                imageView2.setImageDrawable(imageView1.getDrawable());
+                imageView1.setImageDrawable(null);
+            }
+        });
+    }
+}
+
+
+          Result: The program was executed. The result was obtained successfully.Thus CO1 was obtained.
+
+          Output:
+                      
+                         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Experiment No: 13
+
+   Aim: To Develop an application that works with explicit intents 
+
+    CO4: Implement activities with dialogs, spinner, fragments and navigation drawer by applying themes
+
+   Procedure:
+
+   Activity_main1.xml
+       <?xml version="1.0" encoding="utf-8"?>
+   <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Student management"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="25dp"
+        android:textSize="18dp"/>
+
+    <EditText
+        android:layout_width="204dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt1"
+        android:hint="student name"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="30dp"/>
+
+
+
+
+
+    <EditText
+        android:layout_width="204dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt2"
+        android:hint="roll no"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="30dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="40dp"
+        android:text="Next"/>
+</LinearLayout>
+
+Activity_main2.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity2"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Student management"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="25dp"
+        android:textSize="18dp"/>
+
+
+    <TextView
+        android:id="@+id/res"
+        android:layout_width="338dp"
+        android:layout_height="122dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="35dp" />
+
+</LinearLayout>
+
+
+Main_activity1.java
+
+package com.example.demoapp;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.text.Layout;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.Calendar;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        LinearLayout l=findViewById(R.id.main);
+
+        EditText ed1=findViewById(R.id.txt1);
+        EditText ed2=findViewById(R.id.txt2);
+        Button nextbtn=findViewById(R.id.btn);
+
+        nextbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name=ed1.getText().toString();
+                int roll=Integer.parseInt(ed2.getText().toString());
+
+                Intent intent=new Intent(MainActivity.this,MainActivity2.class);
+                intent.putExtra("name",name);
+                intent.putExtra("rollno",roll);
+
+                startActivity(intent);
+
+            }
+        });
+
+    }
+}
+
+Main_activity2.java
+
+package com.example.demoapp;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import com.google.android.material.snackbar.Snackbar;
+
+public class MainActivity2 extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main2);
+        LinearLayout layout=findViewById(R.id.main);
+        TextView result=findViewById(R.id.res);
+
+        String name=getIntent().getStringExtra("name");
+        int rollno=getIntent().getIntExtra("rollno",0);
+
+        result.setText("Name of Student: "+name+"\nRoll No: "+rollno);
+
+        Snackbar sb=Snackbar.make(layout,"Student Result",Snackbar.LENGTH_LONG);
+        sb.setAction("Click", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity2.this,"Passed",Toast.LENGTH_SHORT).show();
+            }
+        });
+        sb.show();
+
+
+    }
+}
+
+                     
+  Result: The program was executed. The result was obtained successfully.Thus CO1 was obtained.
+
+
+
+
+
+
+  Output:
+                      
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   Experiment No: 14
+
+    Aim: To Develop an application that works with implicit intents 
+
+    CO4: Implement activities with dialogs, spinner, fragments and navigation drawer by applying themes 
+
+    Procedure:
+            Activity_main.xml
+	
+	<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:gravity="center_horizontal">
+
+    <EditText
+        android:id="@+id/editTextLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter website link"
+        android:inputType="textUri" />
+
+    <Button
+        android:id="@+id/buttonOpen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open Link"
+        android:layout_marginTop="20dp" />
+
+</LinearLayout>
+
+MainActivity.java
+
+package com.example.applicationtrial;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.applicationtrial.R;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText editTextLink;
+    Button buttonOpen;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        editTextLink = findViewById(R.id.editTextLink);
+        buttonOpen = findViewById(R.id.buttonOpen);
+
+        buttonOpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String url = editTextLink.getText().toString().trim();
+
+                if (url.isEmpty()) {
+                    Toast.makeText(MainActivity.this,
+                            "Please enter a link",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+
+                    // Add https:// if user does not type it
+                    if (!url.startsWith("http://") &&
+                            !url.startsWith("https://")) {
+                        url = "https://" + url;
+                    }
+
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
+
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+}
+
+
+      Result: The program was executed. The result was obtained successfully.Thus CO1 was obtained.
+
+       Output:
+                   
+                      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Experiment No: 15
+
+           Aim: To Develop an application that uses Array Adapter with List View
+
+CO4: Implement activities with dialogs, spinner, fragments and navigation drawer by applying themes
+
+Procedure:
+            Activity_main.xml
+            <?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Array Adapter Demo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ls"
+        tools:ignore="MissingConstraints"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+    MainActivity.java
+
+ package com.example.arrayadapter;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+
+    ListView l=findViewById(R.id.ls);
+    String[] days={"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"};
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    {
+        TextView temp=(TextView) view;
+        Toast.makeText(this,"You clicked"+temp.getText()+" at "+position, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+
+        
+
+
+  ArrayAdapter<String>adapter=new	ArrayAdapter<String>(this,         androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,days);
+        l.setAdapter(adapter);
+        l.setOnItemClickListener(this);
+
+    }
+}
+
+Result: The program was executed. The result was obtained successfully. Thus CO4 was obtained.
+
+Output:
+                      
+
+
+
+
+
+
+
+Experiment No: 16
+
+           Aim: To Develop an application to implement date picker 
+
+CO4: Implement activities with dialogs, spinner, fragments and navigation drawer by applying themes 
+
+Procedure:
+                 Activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected date is: "
+        android:textSize="20sp" />
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+MainActivity.java
+package com.example.datepicker;
+
+import android.os.Bundle;
+import android.widget.DatePicker;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import java.util.Calendar;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        DatePicker datePicker = findViewById(R.id.datePicker);
+        TextView textView = findViewById(R.id.textView);
+        Calendar today = Calendar.getInstance();
+        datePicker.init(
+                today.get(Calendar.YEAR),
+                today.get(Calendar.MONTH),
+                today.get(Calendar.DAY_OF_MONTH),
+                new DatePicker.OnDateChangedListener() {
+                    @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+ textView.setText("Selected date is: " + dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                    }
+                });
+}
+}
+
+
+          Result: The program was executed. The result was obtained successfully.Thus CO1 was obtained.
+
+
+
+
+
+          Output:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Experiment No: 17
+
+           Aim: To Develop an application to implement time picker 
+
+CO4: Implement activities with dialogs, spinner, fragments and navigation drawer by applying themes
+
+Procedure:
+Activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected time: "
+        android:textSize="24sp"/>
+
+</LinearLayout>
+
+
+
+
+
+
+
+MainActivity.java
+package com.example.timepicker;
+
+import android.os.Bundle;
+import android.widget.DatePicker;
+import android.widget.TextView;
+import android.widget.TimePicker;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import java.util.Calendar;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+
+        TimePicker timePicker = findViewById(R.id.timePicker);
+        TextView textView = findViewById(R.id.textView);
+
+
+        timePicker.setOnTimeChangedListener((view, hourOfDay, minute) -> {
+            textView.setText("Selected time: " + hourOfDay + ":" + minute);
+        });
+    }
+}
+
+
+          Result: The program was executed. The result was obtained successfully.Thus CO1 was obtained.
+
+
+
+
+
+
+          Output: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Experiment No: 18
+
+           Aim: To develop an application to implement SQLite  Programming 
+
+CO5: Develop mobile applications using SQLite.
+
+Procedure:
+       Activity_main.xml
+      <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Registration"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="32dp" />
+
+    <EditText
+        android:id="@+id/roll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter roll no"
+        android:inputType="number"
+        android:layout_marginBottom="12dp" />
+
+
+
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter name"
+        android:inputType="textPersonName"
+        android:layout_marginBottom="12dp" />
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter phone no"
+        android:inputType="phone"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Data" />
+
+    <Button
+        android:id="@+id/btn2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Read Data" />
+
+    <Button
+        android:id="@+id/btn3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update Data" />
+
+    <Button
+        android:id="@+id/btn4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Data" />
+
+    <TextView
+        android:id="@+id/view"
+        android:layout_width="310dp"
+        android:layout_height="234dp"
+        android:layout_marginTop="25dp"/>
+
+
+</LinearLayout>
+
+
+
+DBHelper.java
+          
+        package com.example.dbdemo;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+public class DBhelper extends SQLiteOpenHelper {
+
+    public static final String DBNAME = "Student.db";
+    public static final String TABLENAME = "student_table";
+
+    public DBhelper(Context context) {
+        super(context, DBNAME, null, 1);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        String query = "CREATE TABLE student_table (roll INTEGER PRIMARY KEY, name TEXT, phone TEXT)";
+        db.execSQL(query);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLENAME);
+        onCreate(db);
+    }
+
+
+    public boolean insertStudent(int roll, String name, String phone) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("roll", roll);
+        values.put("name", name);
+        values.put("phone", phone);
+        long result = db.insert("student_table", null, values);
+        return result != -1;
+    }
+
+    public Cursor getAllStudents() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLENAME, null);
+    }
+
+    public boolean updateStudent(int roll, String name, String phone) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", name);
+        values.put("phone", phone);
+        int result = db.update("student_table", values, "roll=?", new String[]{String.valueOf(roll)});
+        return result > 0;
+    }
+
+    public boolean deleteStudent(int roll) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int result = db.delete("student_table", "roll=?", new String[]{String.valueOf(roll)});
+        return result > 0;
+    }
+
+
+
+
+
+
+MainActivity.java
+  package com.example.dbdemo;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+
+    DBhelper dBhelper;
+    TextView res;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+
+        dBhelper = new DBhelper(this);
+
+        EditText rollno = findViewById(R.id.roll);
+        EditText name = findViewById(R.id.name);
+        EditText phoneno = findViewById(R.id.phone);
+        Button submit = findViewById(R.id.btn);
+        Button read = findViewById(R.id.btn2);
+        Button update = findViewById(R.id.btn3);
+        Button delete = findViewById(R.id.btn4);
+        res = findViewById(R.id.view);
+
+        displayData();
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String roll = rollno.getText().toString();
+                String nameStr = name.getText().toString();
+                String mobile = phoneno.getText().toString();
+
+                if (roll.isEmpty() || nameStr.isEmpty() || mobile.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Enter all details", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        boolean insert = dBhelper.insertStudent(Integer.parseInt(roll), nameStr, mobile);
+                        if (insert) {
+                            Toast.makeText(MainActivity.this, "Data inserted successfully", Toast.LENGTH_SHORT).show();
+                            clearFields(rollno, name, phoneno);
+                            displayData();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Data not inserted", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(MainActivity.this, "Invalid roll number", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        read.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayData();
+                Toast.makeText(MainActivity.this, "Data refreshed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String roll = rollno.getText().toString();
+                String nameStr = name.getText().toString();
+                String mobile = phoneno.getText().toString();
+
+                if (roll.isEmpty() || nameStr.isEmpty() || mobile.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Enter all details to update", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        boolean isUpdated = dBhelper.updateStudent(Integer.parseInt(roll), nameStr, mobile);
+                        if (isUpdated) {
+                            Toast.makeText(MainActivity.this, "Data updated successfully", Toast.LENGTH_SHORT).show();
+                            clearFields(rollno, name, phoneno);
+                            displayData();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Update failed (Roll No not found)", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(MainActivity.this, "Invalid roll number", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String roll = rollno.getText().toString();
+
+                if (roll.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Enter roll no to delete", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        boolean isDeleted = dBhelper.deleteStudent(Integer.parseInt(roll));
+                        if (isDeleted) {
+                            Toast.makeText(MainActivity.this, "Data deleted successfully", Toast.LENGTH_SHORT).show();
+                            clearFields(rollno, name, phoneno);
+                            displayData();
+                        } 
+      else {
+         Toast.makeText(MainActivity.this, "Delete failed (Roll No not found)", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(MainActivity.this, "Invalid roll number", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+    }
+
+    private void clearFields(EditText r, EditText n, EditText p) {
+        r.setText("");
+        n.setText("");
+        p.setText("");
+    }
+
+    private void displayData() {
+        Cursor cursor = dBhelper.getAllStudents();
+        if (cursor == null) return;
+        
+        if (cursor.getCount() == 0) {
+            res.setText("No data available");
+            cursor.close();
+            return;
+        }
+
+        StringBuilder buffer = new StringBuilder();
+        while (cursor.moveToNext()) {
+            int roll = cursor.getInt(0);
+            String nameStr = cursor.getString(1);
+            String mobile = cursor.getString(2);
+            buffer.append("Roll: ").append(roll)
+                  .append(", Name: ").append(nameStr)
+                  .append(", Phone: ").append(mobile).append("\n");
+        }
+
+
+
+
+        res.setText(buffer.toString());
+        cursor.close();
+    }
+}
+
+
+Result: The program was executed. The result was obtained successfully.Thus CO1 was obtained.
+
+Output:
