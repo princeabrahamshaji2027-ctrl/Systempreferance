@@ -282,3 +282,401 @@ WHERE rollno=3;
 SELECT * FROM exam_student;
 
 DROP TABLE exam_student;
+==================
+3️FACTORIAL PROGRAM
+-WITHOUT FUNCTION
+SET SERVEROUTPUT ON;
+
+DECLARE
+    n NUMBER;
+    fact NUMBER := 1;
+    i NUMBER;
+
+BEGIN
+    n := &n;
+
+    FOR i IN 1..n LOOP
+        fact := fact * i;
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE('Factorial = ' || fact);
+
+END;
+/
+- WITH FUNCTION
+CREATE OR REPLACE FUNCTION factorial(n NUMBER)
+RETURN NUMBER
+IS
+    fact NUMBER := 1;
+    i NUMBER;
+
+BEGIN
+
+    FOR i IN 1..n LOOP
+        fact := fact * i;
+    END LOOP;
+
+    RETURN fact;
+
+END;
+/
+Calling
+SET SERVEROUTPUT ON;
+
+DECLARE
+    result NUMBER;
+    n NUMBER;
+
+BEGIN
+    n := &n;
+
+    result := factorial(n);
+
+    DBMS_OUTPUT.PUT_LINE('Factorial = ' || result);
+
+END;
+/
+4️ARMSTRONG NUMBER
+
+Example:
+153 → 1³ + 5³ + 3³ = 153
+
+-WITHOUT FUNCTION
+SET SERVEROUTPUT ON;
+
+DECLARE
+    n NUMBER;
+    temp NUMBER;
+    rem NUMBER;
+    sum1 NUMBER := 0;
+
+BEGIN
+    n := &n;
+
+    temp := n;
+
+    WHILE temp > 0 LOOP
+
+        rem := MOD(temp,10);
+
+        sum1 := sum1 + (rem * rem * rem);
+
+        temp := TRUNC(temp/10);
+
+    END LOOP;
+
+    IF sum1 = n THEN
+        DBMS_OUTPUT.PUT_LINE('Armstrong Number');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Not Armstrong');
+    END IF;
+
+END;
+/
+-WITH FUNCTION
+CREATE OR REPLACE FUNCTION armstrong(n NUMBER)
+RETURN NUMBER
+IS
+    temp NUMBER;
+    rem NUMBER;
+    sum1 NUMBER := 0;
+
+BEGIN
+
+    temp := n;
+
+    WHILE temp > 0 LOOP
+
+        rem := MOD(temp,10);
+
+        sum1 := sum1 + (rem * rem * rem);
+
+        temp := TRUNC(temp/10);
+
+    END LOOP;
+
+    RETURN sum1;
+
+END;
+/
+Calling
+SET SERVEROUTPUT ON;
+
+DECLARE
+    n NUMBER;
+    result NUMBER;
+
+BEGIN
+
+    n := &n;
+
+    result := armstrong(n);
+
+    IF result = n THEN
+        DBMS_OUTPUT.PUT_LINE('Armstrong Number');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Not Armstrong');
+    END IF;
+
+END;
+/
+5️ PALINDROME NUMBER
+
+Example:
+121 → reverse = 121
+
+-WITHOUT FUNCTION
+SET SERVEROUTPUT ON;
+
+DECLARE
+    n NUMBER;
+    temp NUMBER;
+    rem NUMBER;
+    rev NUMBER := 0;
+
+BEGIN
+
+    n := &n;
+
+    temp := n;
+
+    WHILE temp > 0 LOOP
+
+        rem := MOD(temp,10);
+
+        rev := (rev * 10) + rem;
+
+        temp := TRUNC(temp/10);
+
+    END LOOP;
+
+    IF rev = n THEN
+        DBMS_OUTPUT.PUT_LINE('Palindrome');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Not Palindrome');
+    END IF;
+
+END;
+/
+- WITH FUNCTION
+CREATE OR REPLACE FUNCTION palindrome(n NUMBER)
+RETURN NUMBER
+IS
+    temp NUMBER;
+    rem NUMBER;
+    rev NUMBER := 0;
+
+BEGIN
+
+    temp := n;
+
+    WHILE temp > 0 LOOP
+
+        rem := MOD(temp,10);
+
+        rev := (rev * 10) + rem;
+
+        temp := TRUNC(temp/10);
+
+    END LOOP;
+
+    RETURN rev;
+
+END;
+/
+Calling
+SET SERVEROUTPUT ON;
+
+DECLARE
+    n NUMBER;
+    result NUMBER;
+
+BEGIN
+
+    n := &n;
+
+    result := palindrome(n);
+
+    IF result = n THEN
+        DBMS_OUTPUT.PUT_LINE('Palindrome');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Not Palindrome');
+    END IF;
+
+END;
+/
+6️ PRIME NUMBER
+-WITHOUT FUNCTION
+SET SERVEROUTPUT ON;
+
+DECLARE
+    n NUMBER;
+    i NUMBER;
+    flag NUMBER := 0;
+
+BEGIN
+
+    n := &n;
+
+    FOR i IN 2..n-1 LOOP
+
+        IF MOD(n,i)=0 THEN
+            flag := 1;
+        END IF;
+
+    END LOOP;
+
+    IF flag = 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Prime Number');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Not Prime');
+    END IF;
+
+END;
+/
+- WITH FUNCTION
+CREATE OR REPLACE FUNCTION prime(n NUMBER)
+RETURN NUMBER
+IS
+    i NUMBER;
+    flag NUMBER := 0;
+
+BEGIN
+
+    FOR i IN 2..n-1 LOOP
+
+        IF MOD(n,i)=0 THEN
+            flag := 1;
+        END IF;
+
+    END LOOP;
+
+    RETURN flag;
+
+END;
+/
+Calling
+SET SERVEROUTPUT ON;
+
+DECLARE
+    n NUMBER;
+    result NUMBER;
+
+BEGIN
+
+    n := &n;
+
+    result := prime(n);
+
+    IF result = 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Prime Number');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Not Prime');
+    END IF;
+
+END;
+/
+7️REVERSE OF NUMBER
+- WITHOUT FUNCTION
+SET SERVEROUTPUT ON;
+
+DECLARE
+    n NUMBER;
+    temp NUMBER;
+    rem NUMBER;
+    rev NUMBER := 0;
+
+BEGIN
+
+    n := &n;
+
+    temp := n;
+
+    WHILE temp > 0 LOOP
+
+        rem := MOD(temp,10);
+
+        rev := rev * 10 + rem;
+
+        temp := TRUNC(temp/10);
+
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE('Reverse = ' || rev);
+
+END;
+/
+- WITH FUNCTION
+CREATE OR REPLACE FUNCTION reverse_num(n NUMBER)
+RETURN NUMBER
+IS
+    temp NUMBER;
+    rem NUMBER;
+    rev NUMBER := 0;
+
+BEGIN
+
+    temp := n;
+
+    WHILE temp > 0 LOOP
+
+        rem := MOD(temp,10);
+
+        rev := rev * 10 + rem;
+
+        temp := TRUNC(temp/10);
+
+    END LOOP;
+
+    RETURN rev;
+
+END;
+/
+8️SUM OF DIGITS
+- WITHOUT FUNCTION
+SET SERVEROUTPUT ON;
+
+DECLARE
+    n NUMBER;
+    temp NUMBER;
+    rem NUMBER;
+    sum1 NUMBER := 0;
+
+BEGIN
+
+    n := &n;
+
+    temp := n;
+
+    WHILE temp > 0 LOOP
+
+        rem := MOD(temp,10);
+
+        sum1 := sum1 + rem;
+
+        temp := TRUNC(temp/10);
+
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE('Sum = ' || sum1);
+
+END;
+/
+9️ EVEN OR ODD
+SET SERVEROUTPUT ON;
+
+DECLARE
+    n NUMBER;
+
+BEGIN
+
+    n := &n;
+
+    IF MOD(n,2)=0 THEN
+        DBMS_OUTPUT.PUT_LINE('Even');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Odd');
+    END IF;
+
+END;
+/
