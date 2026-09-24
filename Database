@@ -1344,3 +1344,128 @@ Possible outcome/path
 LEAF NODE
 ↓
 Final class/prediction
+≠============================°
+# -----------------------------------------
+# Q1: EXPLORATORY DATA VISUALIZATION
+# -----------------------------------------
+
+# Import libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+# 1. Read the Excel dataset
+df = pd.read_excel("dataset.xlsx")
+
+
+# 2. Display first 5 rows
+print("First 5 rows:")
+print(df.head())
+
+
+# 3. Display number of rows and columns
+print("\nShape of dataset:")
+print(df.shape)
+
+
+# 4. Display information about columns
+print("\nDataset information:")
+print(df.info())
+
+
+# 5. Display statistical summary
+print("\nStatistical summary:")
+print(df.describe())
+
+
+# 6. Check missing values
+print("\nMissing values:")
+print(df.isnull().sum())
+
+
+# -----------------------------------------
+# GRAPH 1: HISTOGRAM
+# -----------------------------------------
+
+# Change "Age" to a numerical column in your dataset
+plt.hist(df["Age"], bins=5)
+
+plt.title("Age Distribution")
+plt.xlabel("Age")
+plt.ylabel("Frequency")
+
+plt.show()
+
+
+# -----------------------------------------
+# GRAPH 2: BAR CHART
+# -----------------------------------------
+
+# Change "Department" to a categorical column
+# and "Salary" to a numerical column
+plt.bar(df["Department"], df["Salary"])
+
+plt.title("Salary by Department")
+plt.xlabel("Department")
+plt.ylabel("Salary")
+
+plt.show()
+
+
+# -----------------------------------------
+# GRAPH 3: PIE CHART
+# -----------------------------------------
+
+# Count how many records belong to each department
+df["Department"].value_counts().plot(
+    kind="pie",
+    autopct="%1.1f%%"
+)
+
+plt.title("Department Distribution")
+plt.ylabel("")
+
+plt.show()
+
+
+# -----------------------------------------
+# GRAPH 4: SCATTER PLOT
+# -----------------------------------------
+
+# Compare two numerical columns
+plt.scatter(df["Age"], df["Salary"])
+
+plt.title("Age vs Salary")
+plt.xlabel("Age")
+plt.ylabel("Salary")
+
+plt.show()
+
+
+# -----------------------------------------
+# GRAPH 5: BOX PLOT
+# -----------------------------------------
+
+# Shows spread and possible outliers
+plt.boxplot(df["Salary"])
+
+plt.title("Salary Distribution")
+plt.ylabel("Salary")
+
+plt.show()
+
+
+# -----------------------------------------
+# GRAPH 6: CORRELATION HEATMAP
+# -----------------------------------------
+
+# Calculate correlation between numerical columns
+corr = df.corr(numeric_only=True)
+
+# Display correlation as a heatmap
+sns.heatmap(corr, annot=True)
+
+plt.title("Correlation Heatmap")
+
+plt.show()
