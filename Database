@@ -1,28 +1,689 @@
+Q1. Student Marks — Mean, Median, Mode, Max, Min
+
+Your manual asks you to create a student marks dataset and calculate these statistics.
+
+Example question
+
+Create a DataFrame containing student marks in Mathematics, Science and English. Find mean, median, mode, maximum and minimum.
+
+Skeleton
 import pandas as pd
 
-# 1. Load
-df = pd.read_csv("FILE.csv")
+# 🔴 CHANGE: student names and marks according to question
+data = {
+    "Name": ["Alice", "Bob", "Charlie", "David", "Eva"],
+    "Maths": [80, 65, 90, 75, 80],
+    "Science": [75, 70, 85, 80, 90],
+    "English": [85, 60, 88, 72, 95]
+}
 
-# 2. Inspect
+# 🟢 KEEP
+df = pd.DataFrame(data)
+
+print(df)
+
+# 🔴 CHANGE "Maths" to Science/English if required
+print("Mean:", df["Maths"].mean())
+
+print("Median:", df["Maths"].median())
+
+print("Mode:", df["Maths"].mode())
+
+print("Maximum:", df["Maths"].max())
+
+print("Minimum:", df["Maths"].min())
+If they ask for Science:
+
+Change:
+
+df["Maths"]
+
+to:
+
+df["Science"]
+If they ask for all subjects:
+subjects = ["Maths", "Science", "English"]
+
+for subject in subjects:
+    print("\n", subject)
+    print("Mean:", df[subject].mean())
+    print("Median:", df[subject].median())
+    print("Mode:", df[subject].mode())
+    print("Maximum:", df[subject].max())
+    print("Minimum:", df[subject].min())
+🧠 Remember
+mean    = average
+median  = middle
+mode    = repeated
+max     = biggest
+min     = smallest
+Q2. Employee Data — Statistics
+
+Your manual then moves to employee salary/age-type data and asks for statistical calculations including sum, average, standard deviation and variance.
+
+Example question
+
+Create employee data and calculate total salary, average salary, standard deviation and variance.
+
+import pandas as pd
+
+# 🔴 CHANGE data according to question
+data = {
+    "Employee": ["A", "B", "C", "D", "E"],
+    "Age": [25, 30, 28, 35, 40],
+    "Salary": [25000, 35000, 30000, 45000, 50000]
+}
+
+# 🟢 KEEP
+df = pd.DataFrame(data)
+
+print(df)
+
+# 🔴 CHANGE "Salary" if another numerical column is asked
+print("Sum:", df["Salary"].sum())
+
+print("Mean:", df["Salary"].mean())
+
+print("Standard Deviation:", df["Salary"].std())
+
+print("Variance:", df["Salary"].var())
+
+print("Maximum:", df["Salary"].max())
+
+print("Minimum:", df["Salary"].min())
+If question asks age statistics:
+
+Change:
+
+df["Salary"]
+
+to:
+
+df["Age"]
+
+That's basically it.
+
+Q3. Load CSV + Inspect Dataset
+
+Your manual asks you to load a CSV and inspect dimensions, column names/types, first/last records, statistical summary and missing values.
+
+Example question
+
+Load employee.csv and display dimensions, column names, data types, first five records, last five records and statistical summary.
+
+import pandas as pd
+
+# 🔴 CHANGE FILE NAME
+df = pd.read_csv("employee.csv")
+
+# 🟢 KEEP
+print("First 5 records:")
 print(df.head())
+
+print("\nLast 5 records:")
+print(df.tail())
+
+print("\nShape:")
 print(df.shape)
+
+print("\nColumn names:")
+print(df.columns)
+
+print("\nData types:")
+print(df.dtypes)
+
+print("\nInformation:")
 print(df.info())
+
+print("\nStatistical summary:")
 print(df.describe())
+
+print("\nMissing values:")
+print(df.isnull().sum())
+What can change?
+
+Only:
+
+"employee.csv"
+
+to whatever file they give you.
+
+For example:
+
+df = pd.read_csv("student.csv")
+
+or:
+
+df = pd.read_csv("sales.csv")
+Q4. Missing Values
+
+Your manual asks you to identify missing values and fill numerical values using mean/median and categorical values using mode.
+
+Example
+import pandas as pd
+
+df = pd.read_csv("employee.csv")  # 🔴 CHANGE FILE
+
+# Find missing values
 print(df.isnull().sum())
 
-# 3. Clean
-df = df.drop_duplicates()
-
-# 4. Handle missing values
-df["NUMERICAL"] = df["NUMERICAL"].fillna(
-    df["NUMERICAL"].mean()
+# 🔴 CHANGE "Age" to the numerical column
+df["Age"] = df["Age"].fillna(
+    df["Age"].mean()
 )
 
-# 5. X and y
-X = df[["FEATURE1", "FEATURE2", "FEATURE3"]]
-y = df["TARGET"]
+# 🔴 CHANGE "Department" to categorical column
+df["Department"] = df["Department"].fillna(
+    df["Department"].mode()[0]
+)
 
-# 6. Split
+print(df)
+If they specifically ask MEAN vs MEDIAN
+Mean:
+df["Age"] = df["Age"].fillna(
+    df["Age"].mean()
+)
+Median:
+df["Age"] = df["Age"].fillna(
+    df["Age"].median()
+)
+🧠 Exam trick
+
+If the question says:
+
+"Compare mean and median imputation"
+
+write both:
+
+df_mean = df.copy()
+df_median = df.copy()
+
+df_mean["Age"] = df_mean["Age"].fillna(
+    df_mean["Age"].mean()
+)
+
+df_median["Age"] = df_median["Age"].fillna(
+    df_median["Age"].median()
+)
+
+print("Mean imputation:")
+print(df_mean)
+
+print("Median imputation:")
+print(df_median)
+Q5. Duplicate Records
+Example question
+
+Find and remove duplicate records.
+
+import pandas as pd
+
+df = pd.read_csv("employee.csv")  # 🔴 CHANGE FILE
+
+# Check duplicates
+print("Number of duplicates:")
+print(df.duplicated().sum())
+
+# Remove duplicates
+df = df.drop_duplicates()
+
+print("After removing duplicates:")
+print(df)
+Remember
+df.duplicated()
+
+→ finds duplicates
+
+df.drop_duplicates()
+
+→ removes duplicates
+
+Your manual explicitly includes checking and removing duplicate records.
+
+Q6. Create Total / Average Column
+
+Your manual asks for calculated columns such as Total Marks.
+
+Example
+import pandas as pd
+
+df = pd.read_csv("students.csv")  # 🔴 CHANGE FILE
+
+# 🔴 CHANGE subject column names
+df["Total"] = (
+    df["Maths"]
+    + df["Science"]
+    + df["English"]
+)
+
+print(df)
+Average
+df["Average"] = (
+    df["Maths"]
+    + df["Science"]
+    + df["English"]
+) / 3
+
+Or:
+
+df["Average"] = df[
+    ["Maths", "Science", "English"]
+].mean(axis=1)
+Q7. Create Grade / Classification Column
+Example question
+
+Create a Grade column based on marks.
+
+def grade(mark):
+
+    # 🔴 CHANGE these conditions if question gives different ranges
+
+    if mark >= 90:
+        return "A"
+
+    elif mark >= 75:
+        return "B"
+
+    elif mark >= 50:
+        return "C"
+
+    else:
+        return "F"
+
+
+# 🔴 CHANGE "Marks"
+df["Grade"] = df["Marks"].apply(grade)
+
+print(df)
+Important
+
+The structure stays the same.
+
+Only change:
+
+if mark >= ...
+elif mark >= ...
+return "A"
+
+according to the question.
+
+Q8. Group By Category
+
+Your manual asks for grouping by a categorical column and finding average, maximum and minimum.
+
+Example
+
+Find department-wise average, maximum and minimum salary.
+
+import pandas as pd
+
+df = pd.read_csv("employee.csv")  # 🔴 CHANGE FILE
+
+# 🔴 CHANGE "Department" and "Salary"
+print(
+    df.groupby("Department")["Salary"].mean()
+)
+
+print(
+    df.groupby("Department")["Salary"].max()
+)
+
+print(
+    df.groupby("Department")["Salary"].min()
+)
+Understand:
+groupby("Department")
+
+means:
+
+Make separate groups for each department.
+
+Then:
+
+["Salary"].mean()
+
+means:
+
+Find average salary in each group.
+
+Q9. Top 5 / Bottom 5
+
+Your manual asks for top/bottom records and ranking.
+
+# 🔴 CHANGE "Total" to the column you need
+
+print("Top 5:")
+print(df.nlargest(5, "Total"))
+
+print("Bottom 5:")
+print(df.nsmallest(5, "Total"))
+Q10. Ranking
+# 🔴 CHANGE "Total"
+df["Rank"] = df["Total"].rank(
+    ascending=False
+)
+
+print(df)
+
+Highest gets rank 1.
+
+Q11. Students Above Average
+
+Your manual asks for filtering records based on average marks.
+
+# 🔴 CHANGE "Marks"
+
+average = df["Marks"].mean()
+
+result = df[
+    df["Marks"] > average
+]
+
+print(result)
+Q12. Export Processed CSV
+# 🔴 CHANGE output filename if question specifies another
+df.to_csv(
+    "Processed_Report.csv",
+    index=False
+)
+
+The manual specifies Processed_Report.csv.
+
+📊 PART B — MATPLOTLIB / SEABORN
+
+Your manual contains a large number of visualization questions, but the code patterns are repetitive.
+
+Q13. Line Plot
+Example question
+
+Plot monthly sales using a line graph.
+
+import matplotlib.pyplot as plt
+
+# 🔴 CHANGE data
+months = [
+    "Jan", "Feb", "Mar",
+    "Apr", "May"
+]
+
+sales = [
+    100, 150, 130,
+    180, 200
+]
+
+# 🟢 KEEP
+plt.plot(months, sales)
+
+plt.title("Monthly Sales")       # 🔴 CHANGE title
+plt.xlabel("Month")              # 🔴 CHANGE label
+plt.ylabel("Sales")              # 🔴 CHANGE label
+
+plt.grid()
+plt.show()
+Remember
+LINE → trend over something
+Q14. Bar Chart
+import matplotlib.pyplot as plt
+
+# 🔴 CHANGE
+departments = ["HR", "IT", "Sales"]
+employees = [10, 20, 15]
+
+plt.bar(
+    departments,
+    employees
+)
+
+plt.title("Employees by Department")
+plt.xlabel("Department")
+plt.ylabel("Number of Employees")
+
+plt.show()
+Q15. Horizontal Bar
+
+Only change:
+
+plt.bar(...)
+
+to:
+
+plt.barh(...)
+
+Everything else is basically the same.
+
+Q16. Histogram
+
+Your manual asks for marks distributions and identifying whether they are approximately normal.
+
+import matplotlib.pyplot as plt
+
+# 🔴 CHANGE data
+marks = [
+    45, 50, 55, 60,
+    65, 70, 72, 75,
+    80, 82, 85, 90
+]
+
+plt.hist(
+    marks,
+    bins=5
+)
+
+plt.title("Distribution of Marks")
+plt.xlabel("Marks")
+plt.ylabel("Frequency")
+
+plt.show()
+Remember
+HISTOGRAM → distribution
+Q17. Pie Chart
+import matplotlib.pyplot as plt
+
+# 🔴 CHANGE
+labels = ["IT", "HR", "Sales"]
+values = [40, 20, 30]
+
+plt.pie(
+    values,
+    labels=labels,
+    autopct="%1.1f%%"
+)
+
+plt.title("Department Distribution")
+
+plt.show()
+Q18. Scatter Plot
+
+Your manual asks for a height-vs-weight relationship and correlation interpretation.
+
+import matplotlib.pyplot as plt
+
+# 🔴 CHANGE data
+height = [150, 155, 160, 165, 170, 175]
+weight = [50, 55, 58, 65, 70, 75]
+
+plt.scatter(
+    height,
+    weight
+)
+
+plt.title("Height vs Weight")
+plt.xlabel("Height")
+plt.ylabel("Weight")
+
+plt.show()
+Remember
+SCATTER → relationship between 2 numerical variables
+Q19. Box Plot
+
+Your manual asks for box plots and interpretation of median, quartiles, whiskers and outliers.
+
+import matplotlib.pyplot as plt
+
+# 🔴 CHANGE
+marks = [
+    45, 50, 55, 60,
+    65, 70, 75, 80,
+    85, 90, 150
+]
+
+plt.boxplot(marks)
+
+plt.title("Marks Box Plot")
+plt.ylabel("Marks")
+
+plt.show()
+
+The 150 may appear as an outlier.
+
+Q20. Seaborn Count Plot
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 🔴 CHANGE column name
+sns.countplot(
+    x="Department",
+    data=df
+)
+
+plt.title("Department Count")
+
+plt.show()
+countplot → how many observations in each category
+Q21. Seaborn Bar Plot
+sns.barplot(
+    x="Department",       # 🔴 CHANGE
+    y="Salary",           # 🔴 CHANGE
+    data=df
+)
+
+plt.show()
+Q22. Seaborn Box Plot
+sns.boxplot(
+    x="Department",       # 🔴 CHANGE
+    y="Salary",           # 🔴 CHANGE
+    data=df
+)
+
+plt.show()
+Q23. Violin Plot
+sns.violinplot(
+    x="Department",        # 🔴 CHANGE
+    y="Salary",            # 🔴 CHANGE
+    data=df
+)
+
+plt.show()
+Q24. Strip Plot
+sns.stripplot(
+    x="Department",        # 🔴 CHANGE
+    y="Salary",            # 🔴 CHANGE
+    data=df
+)
+
+plt.show()
+
+These Seaborn plots are explicitly part of your manual.
+
+Q25. Correlation Heatmap ⭐⭐⭐
+
+Your manual asks you to generate a correlation heatmap and identify the strongest correlation.
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 🟢 Usually keep this
+corr = df.corr(
+    numeric_only=True
+)
+
+sns.heatmap(
+    corr,
+    annot=True
+)
+
+plt.title("Correlation Heatmap")
+
+plt.show()
+You normally don't change:
+corr = df.corr(numeric_only=True)
+
+You mainly change the title if required.
+
+Q26. Iris Pair Plot
+
+Your manual asks for a pair plot of Iris features colored by species.
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 🟢 KEEP if using built-in Iris dataset
+iris = sns.load_dataset("iris")
+
+sns.pairplot(
+    iris,
+    hue="species"
+)
+
+plt.show()
+
+If they give you a different dataset:
+
+# 🔴 CHANGE
+df = pd.read_csv("FILE.csv")
+
+# 🔴 CHANGE "species" to target/category
+sns.pairplot(
+    df,
+    hue="TARGET_COLUMN"
+)
+🤖 PART C — MACHINE LEARNING
+
+Now the architecture becomes:
+
+DATA
+ ↓
+CLEAN
+ ↓
+X / y
+ ↓
+TRAIN TEST SPLIT
+ ↓
+PREPROCESS
+ ↓
+MODEL
+ ↓
+FIT
+ ↓
+PREDICT
+ ↓
+EVALUATE
+Q27. X and y
+
+Suppose:
+
+Age
+Glucose
+BloodPressure
+Risk
+
+and Risk is the target.
+
+# 🔴 CHANGE feature columns
+X = df[
+    [
+        "Age",
+        "Glucose",
+        "BloodPressure"
+    ]
+]
+
+# 🔴 CHANGE target
+y = df["Risk"]
+Remember
+X → input
+y → answer
+Q28. Train/Test Split ⭐⭐⭐
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(
@@ -32,29 +693,654 @@ X_train, X_test, y_train, y_test = train_test_split(
     random_state=42
 )
 
-# 7. Scale if required
+Normally you only change:
+
+test_size=0.2
+
+if the question specifies a different percentage.
+
+Q29. Label Encoding
+from sklearn.preprocessing import LabelEncoder
+
+# 🔴 CHANGE column
+le = LabelEncoder()
+
+df["Gender"] = le.fit_transform(
+    df["Gender"]
+)
+Q30. One-Hot Encoding
+# 🔴 CHANGE categorical column
+df = pd.get_dummies(
+    df,
+    columns=["Department"]
+)
+Q31. Min-Max Scaling
+from sklearn.preprocessing import MinMaxScaler
+
+scaler = MinMaxScaler()
+
+X_train = scaler.fit_transform(
+    X_train
+)
+
+X_test = scaler.transform(
+    X_test
+)
+🚨 Don't write:
+X_test = scaler.fit_transform(X_test)
+
+Use:
+
+X_test = scaler.transform(X_test)
+
+because the scaler should be fitted using training data.
+
+Q32. Standardization
 from sklearn.preprocessing import StandardScaler
 
 scaler = StandardScaler()
 
-X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
+X_train = scaler.fit_transform(
+    X_train
+)
 
-# 8. Model
-MODEL = ...
+X_test = scaler.transform(
+    X_test
+)
 
-# 9. Train
-MODEL.fit(X_train, y_train)
+Your k-NN question specifically asks you to compare Min-Max and Z-score standardization.
 
-# 10. Predict
-y_pred = MODEL.predict(X_test)
+🔴 Q33. k-NN FROM SCRATCH ⭐⭐⭐⭐⭐
 
-# 11. Evaluate
+This is probably the most important code skeleton to practice.
+
+Your manual specifically requires implementing k-NN without KNeighborsClassifier.
+
+Step 1 — Imports
+import numpy as np
+from collections import Counter
+Step 2 — Distance
+def euclidean_distance(a, b):
+
+    return np.sqrt(
+        np.sum(
+            (a - b) ** 2
+        )
+    )
+
+🟢 Do not change this unless the question asks for another distance metric.
+
+Step 3 — k-NN function
+def knn_predict(
+    X_train,
+    y_train,
+    x_test,
+    k
+):
+
+    distances = []
+
+    # 🟢 KEEP
+    for i in range(len(X_train)):
+
+        distance = euclidean_distance(
+            X_train[i],
+            x_test
+        )
+
+        distances.append(
+            (
+                distance,
+                y_train[i]
+            )
+        )
+
+    # 🟢 KEEP
+    distances.sort(
+        key=lambda x: x[0]
+    )
+
+    # 🟢 KEEP
+    k_nearest = distances[:k]
+
+    # 🟢 KEEP
+    labels = [
+        label
+        for distance, label
+        in k_nearest
+    ]
+
+    # 🟢 KEEP
+    prediction = Counter(
+        labels
+    ).most_common(1)[0][0]
+
+    return prediction
+Step 4 — Load k-NN data
+import pandas as pd
+
+# 🔴 CHANGE FILE
+df = pd.read_csv(
+    "knn_dataset.csv"
+)
+Step 5 — X and y
+# 🔴 CHANGE feature columns
+X = df[
+    [
+        "Age",
+        "Glucose",
+        "Cholesterol"
+    ]
+]
+
+# 🔴 CHANGE target column
+y = df["Risk"]
+Step 6 — Split
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X.values,
+    y.values,
+    test_size=0.2,
+    random_state=42
+)
+Step 7 — Predict
+# 🔴 CHANGE k if question specifies
+k = 5
+
+predictions = []
+
+for x in X_test:
+
+    prediction = knn_predict(
+        X_train,
+        y_train,
+        x,
+        k
+    )
+
+    predictions.append(
+        prediction
+    )
+Step 8 — Accuracy
 from sklearn.metrics import accuracy_score
 
+accuracy = accuracy_score(
+    y_test,
+    predictions
+)
+
+print("Accuracy:", accuracy)
+Q34. Different k values
+
+Your manual specifically asks you to test:
+
+1, 3, 5, 7, 9, 11, 13, 15, 17, 19
+
+Use:
+
+k_values = [
+    1, 3, 5, 7, 9,
+    11, 13, 15, 17, 19
+]
+
+for k in k_values:
+
+    predictions = []
+
+    for x in X_test:
+
+        prediction = knn_predict(
+            X_train,
+            y_train,
+            x,
+            k
+        )
+
+        predictions.append(
+            prediction
+        )
+
+    accuracy = accuracy_score(
+        y_test,
+        predictions
+    )
+
+    print(
+        "k =", k,
+        "Accuracy =", accuracy
+    )
+🔴 What might change?
+
+Usually:
+
+k_values = [...]
+
+if the examiner gives a different list.
+
+Q35. Weighted k-NN
+
+Your manual gives:
+
+Weight = 1 / (Distance + ε)
+ε = 0.0001
+
+Skeleton:
+
+epsilon = 0.0001
+
+weight = 1 / (
+    distance + epsilon
+)
+
+Concept:
+
+closer → larger weight
+farther → smaller weight
+🟠 Q36. Bayes Theorem
+
+Your manual gives a specific probability problem involving alcohol consumption and liver disease.
+
+The reusable skeleton:
+
+P_A = 0.10       # 🔴 CHANGE
+P_B = 0.05       # 🔴 CHANGE
+P_B_given_A = 0.07  # 🔴 CHANGE
+
+P_A_given_B = (
+    P_B_given_A * P_A
+) / P_B
+
 print(
+    "Probability:",
+    P_A_given_B
+)
+The formula:
+P(A|B) = P(B|A) × P(A)
+         ----------------
+               P(B)
+
+If the question gives different numbers, only change the three probability values.
+
+🟠 Q37. Naïve Bayes — Weather
+
+Your weather question has:
+
+Outlook
+Temperature
+Humidity
+Wind
+Play
+
+and asks for prior probabilities, conditional probabilities, zero probabilities, Laplace smoothing and prediction.
+
+A basic dataset skeleton:
+
+import pandas as pd
+
+# 🔴 CHANGE values if the question gives another dataset
+data = {
+    "Outlook": [
+        "Sunny",
+        "Sunny",
+        "Overcast",
+        "Rain",
+        "Rain"
+    ],
+
+    "Temperature": [
+        "Hot",
+        "Hot",
+        "Hot",
+        "Mild",
+        "Cool"
+    ],
+
+    "Humidity": [
+        "High",
+        "High",
+        "High",
+        "High",
+        "Normal"
+    ],
+
+    "Wind": [
+        "Weak",
+        "Strong",
+        "Weak",
+        "Weak",
+        "Weak"
+    ],
+
+    "Play": [
+        "No",
+        "No",
+        "Yes",
+        "Yes",
+        "Yes"
+    ]
+}
+
+df = pd.DataFrame(data)
+
+print(df)
+Q38. Prior probability
+
+Suppose target is Play.
+
+total = len(df)
+
+yes_count = (
+    df["Play"] == "Yes"
+).sum()
+
+no_count = (
+    df["Play"] == "No"
+).sum()
+
+P_yes = yes_count / total
+P_no = no_count / total
+
+print("P(Yes):", P_yes)
+print("P(No):", P_no)
+Change only:
+"Play"
+
+if target column has another name.
+
+And:
+
+"Yes"
+"No"
+
+if classes are different.
+
+Q39. Conditional Probability
+
+Skeleton:
+
+# Example:
+# P(Outlook=Sunny | Play=Yes)
+
+yes_data = df[
+    df["Play"] == "Yes"
+]
+
+count_sunny_yes = (
+    yes_data["Outlook"] == "Sunny"
+).sum()
+
+P_sunny_given_yes = (
+    count_sunny_yes
+    / len(yes_data)
+)
+
+print(P_sunny_given_yes)
+🔴 Change:
+"Outlook"
+"Sunny"
+"Play"
+"Yes"
+
+according to the question.
+
+Q40. Laplace Smoothing
+
+The generic formula:
+
+count = 0       # 🔴 CHANGE
+total = 5       # 🔴 CHANGE
+number_of_values = 2  # 🔴 CHANGE
+
+probability = (
+    count + 1
+) / (
+    total + number_of_values
+)
+
+print(probability)
+
+Remember:
+
+             count + 1
+P = ----------------------------
+    total + number of categories
+
+The point is to prevent zero probabilities.
+
+📝 Q41. Text Naïve Bayes
+
+Your manual has a sentiment-classification exercise using CountVectorizer, an 80:20 split, Multinomial Naïve Bayes and prediction of a new message.
+
+Skeleton
+import pandas as pd
+
+from sklearn.feature_extraction.text import CountVectorizer
+
+from sklearn.model_selection import train_test_split
+
+from sklearn.naive_bayes import MultinomialNB
+
+from sklearn.metrics import accuracy_score
+
+
+# 🔴 CHANGE your text data
+texts = [
+    "I love this college",
+    "This college is excellent",
+    "I hate this college",
+    "This is terrible",
+    "Very good experience",
+    "Very bad experience"
+]
+
+# 🔴 CHANGE labels according to question
+labels = [
+    "Positive",
+    "Positive",
+    "Negative",
+    "Negative",
+    "Positive",
+    "Negative"
+]
+
+
+# 🟢 KEEP
+vectorizer = CountVectorizer()
+
+X = vectorizer.fit_transform(
+    texts
+)
+
+# 🟢 KEEP
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    labels,
+    test_size=0.2,
+    random_state=42
+)
+
+# 🟢 KEEP
+model = MultinomialNB(
+    alpha=1.0
+)
+
+model.fit(
+    X_train,
+    y_train
+)
+
+y_pred = model.predict(
+    X_test
+)
+
+print(
+    "Accuracy:",
     accuracy_score(
         y_test,
         y_pred
     )
 )
+Q42. Predict a new message
+# 🔴 CHANGE THIS MESSAGE
+new_message = [
+    "I really love this college"
+]
+
+new_X = vectorizer.transform(
+    new_message
+)
+
+prediction = model.predict(
+    new_X
+)
+
+print(
+    "Prediction:",
+    prediction
+)
+🌳 Q43. Decision Tree
+
+Your manual requires constructing a Decision Tree using entropy and information gain and identifying root/internal/leaf nodes.
+
+Library version
+import pandas as pd
+
+from sklearn.model_selection import train_test_split
+
+from sklearn.tree import DecisionTreeClassifier
+
+from sklearn.metrics import accuracy_score
+
+
+# 🔴 CHANGE FILE
+df = pd.read_csv(
+    "loan.csv"
+)
+
+# 🔴 CHANGE features
+X = df[
+    [
+        "Income",
+        "Employment",
+        "CreditRating"
+    ]
+]
+
+# 🔴 CHANGE target
+y = df[
+    "Eligibility"
+]
+
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)
+
+
+# 🟢 KEEP entropy if the question asks entropy
+model = DecisionTreeClassifier(
+    criterion="entropy",
+    random_state=42
+)
+
+model.fit(
+    X_train,
+    y_train
+)
+
+y_pred = model.predict(
+    X_test
+)
+
+print(
+    "Accuracy:",
+    accuracy_score(
+        y_test,
+        y_pred
+    )
+)
+Q44. Decision Tree — Entropy manually
+
+Formula from your manual:
+
+Entropy(S) = - Σ pᵢ log₂(pᵢ)
+
+Python skeleton:
+
+import math
+
+def entropy(probabilities):
+
+    result = 0
+
+    for p in probabilities:
+
+        if p > 0:
+            result -= p * math.log2(p)
+
+    return result
+
+Example:
+
+# 🔴 CHANGE probabilities
+p_yes = 0.5
+p_no = 0.5
+
+E = entropy([
+    p_yes,
+    p_no
+])
+
+print("Entropy:", E)
+Q45. Information Gain
+
+Your manual uses:
+
+Information Gain
+=
+Parent Entropy
+-
+Weighted Child Entropy
+
+Skeleton:
+
+# 🔴 CHANGE these values
+parent_entropy = 1.0
+
+weighted_child_entropy = 0.5
+
+information_gain = (
+    parent_entropy
+    - weighted_child_entropy
+)
+
+print(
+    "Information Gain:",
+    information_gain
+)
+
+If the question gives multiple attributes, calculate gain for each and compare.
+
+🌳 Q46. Decision Tree Vocabulary
+
+If the examiner asks theory:
+
+ROOT
+↓
+First decision/split
+
+INTERNAL NODE
+↓
+Further decision
+
+BRANCH
+↓
+Possible outcome/path
+
+LEAF NODE
+↓
+Final class/prediction
